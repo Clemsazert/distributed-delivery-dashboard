@@ -1,5 +1,5 @@
-import React from "react";
-import { Chart, ChartDataset, ChartTypeRegistry, registerables } from "chart.js";
+import React from 'react';
+import { Chart, ChartDataset, ChartTypeRegistry, registerables } from 'chart.js';
 import annotationPlugin from 'chartjs-plugin-annotation';
 
 interface ChartProps {
@@ -11,17 +11,6 @@ interface ChartProps {
   labels: (string | number)[];
   datasets: ChartDataset[];
 }
-
-const colors = [
-  "#3366CC",
-  "#FF9900",
-  "#109618",
-  "#FBFF58",
-  "#DC3912",
-  "#0099C6",
-  "#990099",
-  "#DD4477"
-];
 
 Chart.register(...registerables, annotationPlugin);
 
