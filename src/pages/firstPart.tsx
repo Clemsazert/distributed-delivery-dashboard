@@ -1,9 +1,15 @@
 import React from 'react';
 import { DateTime } from 'luxon';
+import styled from 'styled-components';
 
 import * as dataset from '../data.json';
 
 import { BaseChart } from '../components/chart';
+import { Container } from '../components/container';
+
+const HeadPageTitle = styled.h1`
+  font-size: ${props => props.theme.fontSizes.big};
+`;
 
 const GRAPH_COLORS = {
   MAUVE: 'rgb(211, 0, 98)',
@@ -43,8 +49,8 @@ export const FirstPart: React.FC = () => {
   const formatDateLabels = (timestamp: number | string) =>
     DateTime.fromMillis(Number(timestamp)).toFormat('LLL d, h:mm a');
   return (
-    <div>
-      <h1>First Part</h1>
+    <Container>
+      <HeadPageTitle>First Part</HeadPageTitle>
       <BaseChart
         id="bandwith"
         type="line"
@@ -121,6 +127,6 @@ export const FirstPart: React.FC = () => {
           }
         }}
       />
-    </div>
+    </Container>
   );
 };
