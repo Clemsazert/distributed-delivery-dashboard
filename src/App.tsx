@@ -1,36 +1,37 @@
-import React from "react";
-import {
-  Route,
-  Switch,
-  BrowserRouter as Router,
-  Redirect
-} from "react-router-dom";
+import React from 'react';
+import { Route, Switch, BrowserRouter as Router, Redirect } from 'react-router-dom';
 
-import { FirstPart } from "./pages/firstPart";
-import { SecondPart } from "./pages/secondPart";
+import { ThemeProvider } from 'styled-components';
+
+import { theme } from './lib/theme';
+
+import { FirstPart } from './pages/firstPart';
+import { SecondPart } from './pages/secondPart';
 
 const routes = [
   {
-    path: "/part1",
+    path: '/part1',
     component: FirstPart,
-    title: "First Part"
+    title: 'First Part'
   },
   {
-    path: "/part2",
+    path: '/part2',
     component: SecondPart,
-    title: "Second Part"
+    title: 'Second Part'
   }
 ];
 
 const App: React.FC = () => (
-  <Router>
-    <Switch>
-      {routes.map(({ path, component }) => (
-        <Route key={path} path={path} component={component} />
-      ))}
-      <Redirect to="/part1" />
-    </Switch>
-  </Router>
+  <ThemeProvider theme={theme}>
+    <Router>
+      <Switch>
+        {routes.map(({ path, component }) => (
+          <Route key={path} path={path} component={component} />
+        ))}
+        <Redirect to="/part1" />
+      </Switch>
+    </Router>
+  </ThemeProvider>
 );
 
 export default App;
