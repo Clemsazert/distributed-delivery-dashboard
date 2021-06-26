@@ -1,12 +1,4 @@
-const shadows = {
-  medium: `
-    shadow-color: #34485b;
-    shadow-offset: 0px 1px;
-    shadow-opacity: 0.3;
-    shadow-radius: 3px;
-    elevation: 5;
-    `
-};
+const shadows = { default: '0px 2px 10px rgba(0, 0, 0, 0.15)' };
 
 export const theme = {
   gridUnit: 5,
@@ -22,10 +14,10 @@ export const theme = {
   },
   fontSizes: {
     tiny: 10,
-    small: 12,
-    medium: 14,
-    large: 16,
-    big: 18
+    small: 14,
+    medium: 16,
+    large: 20,
+    big: 24
   },
   shadows
 };

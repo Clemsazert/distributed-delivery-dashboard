@@ -5,6 +5,8 @@ import { ThemeProvider } from 'styled-components';
 
 import { theme } from './lib/theme';
 
+import { Navbar } from './components';
+
 import { FirstPart } from './pages/firstPart';
 import { SecondPart } from './pages/secondPart';
 
@@ -24,6 +26,7 @@ const routes = [
 const App: React.FC = () => (
   <ThemeProvider theme={theme}>
     <Router>
+      <Navbar />
       <Switch>
         {routes.map(({ path, component }) => (
           <Route key={path} path={path} component={component} />

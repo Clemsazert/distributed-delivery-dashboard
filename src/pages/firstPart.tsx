@@ -4,8 +4,7 @@ import styled from 'styled-components';
 
 import * as dataset from '../data.json';
 
-import { BaseChart } from '../components/chart';
-import { Container } from '../components/container';
+import { BaseChart, Container } from '../components';
 
 const HeadPageTitle = styled.h1`
   font-size: ${props => props.theme.fontSizes.big};
