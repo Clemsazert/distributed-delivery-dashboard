@@ -1,14 +1,9 @@
 import React from 'react';
 import { DateTime } from 'luxon';
-import styled from 'styled-components';
 
 import * as dataset from '../data.json';
 
-import { BaseChart, Container } from '../components';
-
-const HeadPageTitle = styled.h1`
-  font-size: ${props => props.theme.fontSizes.big};
-`;
+import { BaseChart, Container, HeadPageTitle } from '../components';
 
 const GRAPH_COLORS = {
   MAUVE: 'rgb(211, 0, 98)',
