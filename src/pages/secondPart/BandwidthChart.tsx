@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 import { BandwidthValues } from '../../types/BackendAnswers';
-import { formatBandwidthValue, formatDateLabels, GRAPH_COLORS } from '../../utils/graphFormatting';
+import { formatBandwidthValue, formatDateLabels, GRAPH_COLORS } from '../../utils/graphFormating';
 import { BaseChart } from '../../components';
 
 const GraphContainer = styled.div`
@@ -18,9 +18,9 @@ interface ChartTooltipContext {
 }
 
 export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset }) => {
-  const labels = useMemo(() => dataset.cdn.map(entry => entry[0]), [dataset]);
-  const cdnValues = useMemo(() => dataset.cdn.map(entry => entry[1]), [dataset]);
-  const p2pValues = useMemo(() => dataset.p2p.map(entry => entry[1]), [dataset]);
+  const labels = dataset.cdn.map(entry => entry[0]);
+  const cdnValues = dataset.cdn.map(entry => entry[1]);
+  const p2pValues = dataset.p2p.map(entry => entry[1]);
   const cdnDataset = {
     label: 'CDN',
     data: cdnValues,
@@ -41,12 +41,10 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
     () => cdnValues.reduce((previous, current) => (previous > current ? previous : current), 0),
     [dataset]
   );
-  const maxBandwithStacked = useMemo(
-    () =>
-      cdnValues.reduce((previous, current, index) =>
-        previous > current + p2pValues[index] ? previous : current + p2pValues[index]
-      , 0),
-    [dataset]
+  const maxBandwithStacked = cdnValues.reduce(
+    (previous, current, index) =>
+      previous > current + p2pValues[index] ? previous : current + p2pValues[index],
+    0
   );
   return (
     <GraphContainer>

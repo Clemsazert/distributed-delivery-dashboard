@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { AudienceValues } from '../../types/BackendAnswers';
-import { formatAudienceValue, formatDateLabels, GRAPH_COLORS } from '../../utils/graphFormatting';
+import { formatAudienceValue, formatDateLabels, GRAPH_COLORS } from '../../utils/graphFormating';
 
 import { BaseChart } from '../../components';
 
