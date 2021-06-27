@@ -21,7 +21,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
   const labels = useMemo(() => dataset.cdn.map(entry => entry[0]), [dataset]);
   const cdnValues = useMemo(() => dataset.cdn.map(entry => entry[1]), [dataset]);
   const p2pValues = useMemo(() => dataset.p2p.map(entry => entry[1]), [dataset]);
-  const bandwidthDataset = {
+  const cdnDataset = {
     label: 'CDN',
     data: cdnValues,
     labels,
@@ -38,15 +38,15 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
     fill: true
   };
   const maxBandwidthCDN = useMemo(
-    () => cdnValues.reduce((previous, current) => (previous > current ? previous : current)),
-    [cdnValues]
+    () => cdnValues.reduce((previous, current) => (previous > current ? previous : current), 0),
+    [dataset]
   );
   const maxBandwithStacked = useMemo(
     () =>
       cdnValues.reduce((previous, current, index) =>
         previous > current + p2pValues[index] ? previous : current + p2pValues[index]
-      ),
-    [p2pValues]
+      , 0),
+    [dataset]
   );
   return (
     <GraphContainer>
@@ -56,7 +56,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
         width="1000"
         height="300"
         labels={labels}
-        datasets={[bandwidthDataset, p2pDataset]}
+        datasets={[cdnDataset, p2pDataset]}
         options={{
           scales: {
             y: {

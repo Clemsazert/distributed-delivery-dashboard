@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DateTime } from 'luxon';
 import { AudienceValues, BandwidthValues } from '../../types/BackendAnswers';
 import { User } from '../../types/User';
@@ -16,11 +16,10 @@ interface useDashboardSignature {
   audienceValues: AudienceValues | null;
   startDate: DateTime;
   endDate: DateTime;
-  setStartDate: React.Dispatch<React.SetStateAction<DateTime>>;
-  setEndDate: React.Dispatch<React.SetStateAction<DateTime>>;
   handleLogin: () => void;
   handleRetrieveData: () => void;
   user: User | null;
+  handleChangeDate: (date: 'start' | 'end') => (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const useDashboard = (): useDashboardSignature => {
@@ -50,6 +49,14 @@ export const useDashboard = (): useDashboardSignature => {
       setaudienceValues(data2.audience);
     }
   };
+  const handleChangeDate =
+    (date: 'start' | 'end') => (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (date === 'start') {
+        setStartDate(DateTime.fromISO(event.target.value));
+      } else {
+        setEndDate(DateTime.fromISO(event.target.value));
+      }
+    };
   useEffect(() => {
     const token = localStorage.getItem('sessionToken');
     if (token) {
@@ -63,16 +70,15 @@ export const useDashboard = (): useDashboardSignature => {
     if (user) {
       handleRetrieveData();
     }
-  }, [user]);
+  }, [user, startDate, endDate]);
   return {
     bandwidthValues,
     audienceValues,
     startDate,
     endDate,
-    setStartDate,
-    setEndDate,
     handleLogin,
     handleRetrieveData,
-    user
+    user,
+    handleChangeDate
   };
 };
