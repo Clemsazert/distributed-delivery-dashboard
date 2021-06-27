@@ -21,4 +21,5 @@ export const getAudienceValues = (
   from: number,
   to: number,
   aggregate?: string
-): Promise<AudienceValues> => BackendSession.post('/audience', { data: { from, to, aggregate } });
+): Promise<{ audience: AudienceValues }> =>
+  BackendSession.post('/audience', { data: { from, to, aggregate } });

@@ -1,26 +1,18 @@
 import React, { useMemo } from 'react';
-import { DateTime } from 'luxon';
 import styled from 'styled-components';
 
 import { BandwidthValues } from '../../types/BackendAnswers';
+import { formatBandwidthValue, formatDateLabels, GRAPH_COLORS } from '../../utils/graphFormatting';
 import { BaseChart } from '../../components';
 
-const GRAPH_COLORS = {
-    MAUVE: 'rgb(211, 0, 98)',
-    TRANSP_MAUVE: 'rgba(211, 0, 98, 0.25)',
-    BLUE: 'rgb(0, 131, 207)',
-    TRANSP_BLUE: 'rgba(0, 131, 207, 0.25)',
-    GREEN: 'rgb(14, 167, 0)'
-  };
-
 const GraphContainer = styled.div`
-    width: 1000px;
-    height: 300px;
+  width: 1000px;
+  height: 300px;
 `;
 
-export const BandwidthChart: React.FC<{ dataset: BandwidthValues}> = ({ dataset }) => {
+export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset }) => {
   const labels = useMemo(() => dataset.cdn.map(entry => entry[0]), [dataset]);
-  const cdnValues = useMemo(() =>  dataset.cdn.map(entry => entry[1]), [dataset]);
+  const cdnValues = useMemo(() => dataset.cdn.map(entry => entry[1]), [dataset]);
   const p2pValues = useMemo(() => dataset.p2p.map(entry => entry[1]), [dataset]);
   const bandwidthDataset = {
     label: 'CDN',
@@ -38,20 +30,24 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues}> = ({ dataset 
     backgroundColor: GRAPH_COLORS.TRANSP_BLUE,
     fill: true
   };
-  const maxBandwidthCDN = useMemo(() => cdnValues.reduce((previous, current) =>
-    previous > current ? previous : current
-  ), [cdnValues]);
-  const maxBandwithStacked = useMemo(() => cdnValues.reduce((previous, current, index) =>
-    previous > current + p2pValues[index] ? previous : current + p2pValues[index]
-  ), [p2pValues]);
-  const formatBandwidthValue = (value: number) => `${Math.round(value / 10000) / 100} Gbs`;
-  const formatDateLabels = (timestamp: number | string) =>
-    DateTime.fromMillis(Number(timestamp)).toFormat('LLL d, h:mm a');
+  const maxBandwidthCDN = useMemo(
+    () => cdnValues.reduce((previous, current) => (previous > current ? previous : current)),
+    [cdnValues]
+  );
+  const maxBandwithStacked = useMemo(
+    () =>
+      cdnValues.reduce((previous, current, index) =>
+        previous > current + p2pValues[index] ? previous : current + p2pValues[index]
+      ),
+    [p2pValues]
+  );
   return (
     <GraphContainer>
       <BaseChart
         id="bandwith"
         type="line"
+        width="1000"
+        height="300"
         labels={labels}
         datasets={[bandwidthDataset, p2pDataset]}
         options={{
@@ -61,29 +57,30 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues}> = ({ dataset 
               ticks: {
                 callback: formatBandwidthValue,
                 autoSkip: true,
-                maxTicksLimit: 5,
+                maxTicksLimit: 4,
                 maxRotation: 0,
                 minRotation: 0
               }
             },
             x: {
               ticks: {
-                callback: (index: number) => formatDateLabels(labels[index]),
+                callback: (index: number) => formatDateLabels(labels[index], 'LLL d'),
                 autoSkip: true,
-                maxTicksLimit: 5,
+                maxTicksLimit: 15,
                 maxRotation: 0,
                 minRotation: 0
               }
             }
           },
+          elements: { point: { radius: 0 } },
           plugins: {
             title: {
               display: true,
-              text: 'Bandwidth Usage',
+              text: 'CAPACITY OFFLOAD',
               align: 'start',
-              font: { size: 20 }
+              font: { size: 18, weight: '200' }
             },
-            legend: { align: 'center', position: 'left' },
+            legend: { display: false },
             annotation: {
               annotations: {
                 line1: {
@@ -94,9 +91,9 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues}> = ({ dataset 
                   borderWidth: 3,
                   borderDash: [10, 10],
                   label: {
-                    content: `Max CDN Throughput: ${formatBandwidthValue(maxBandwidthCDN)} Gbs`,
+                    content: `Max CDN Contribution: ${formatBandwidthValue(maxBandwidthCDN)} Gbs`,
                     enabled: true,
-                    position: 'end',
+                    position: 'start',
                     backgroundColor: 'rgba(0,0,0,0)',
                     color: GRAPH_COLORS.MAUVE,
                     yAdjust: -10
@@ -110,7 +107,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues}> = ({ dataset 
                   borderWidth: 3,
                   borderDash: [10, 10],
                   label: {
-                    content: `Max Combined Throughput: ${formatBandwidthValue(
+                    content: `Max Throughput: ${formatBandwidthValue(
                       maxBandwithStacked
                     )} Gbs`,
                     enabled: true,
