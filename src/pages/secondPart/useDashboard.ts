@@ -16,7 +16,7 @@ interface useDashboardSignature {
   audienceValues: AudienceValues | null;
   startDate: DateTime;
   endDate: DateTime;
-  handleLogin: () => void;
+  handleLogin: (identifiant: string, password: string)  => void;
   handleRetrieveData: () => void;
   user: User | null;
   handleChangeDate: (date: 'start' | 'end') => (event: React.ChangeEvent<HTMLInputElement>) => void
@@ -33,8 +33,8 @@ export const useDashboard = (): useDashboardSignature => {
     const retrievedUser = await getUserInfo();
     setUser(retrievedUser);
   };
-  const handleLogin = async () => {
-    const { session_token: sessionToken } = await authRequest('swagtv', 'bling$bling');
+  const handleLogin = async (identifiant: string, password: string) => {
+    const { session_token: sessionToken } = await authRequest(identifiant, password);
     localStorage.setItem('sessionToken', sessionToken);
     BackendSession.setSessionToken(sessionToken);
     await fetchUserFromToken(sessionToken);
@@ -62,8 +62,6 @@ export const useDashboard = (): useDashboardSignature => {
     if (token) {
       BackendSession.setSessionToken(token);
       fetchUserFromToken(token);
-    } else {
-      handleLogin();
     }
   }, []);
   useEffect(() => {

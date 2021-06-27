@@ -7,3 +7,8 @@ export interface User {
   description: string;
   apitoken: string;
 }
+
+export interface LoginInfo {
+  identifiant: string;
+  password: string;
+}

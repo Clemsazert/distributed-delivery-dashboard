@@ -6,6 +6,7 @@ import { Container, HeadPageTitle } from '../../components';
 import { BandwidthChart } from './BandwidthChart';
 import { AudienceChart } from './AudienceChart';
 import { DateSelector } from './DateSelector';
+import { UserLogin } from './UserLogin';
 import { useDashboard } from './useDashboard';
 
 const TimelineContainer = styled.div`
@@ -28,9 +29,7 @@ export const SecondPart: React.FC = () => {
     <Container>
       <HeadPageTitle>Second Part</HeadPageTitle>
       {!user ? (
-        <button onClick={handleLogin} type="button">
-          Login
-        </button>
+        <UserLogin handleLogin={handleLogin} />
       ) : (
         <>
           {bandwidthValues && <BandwidthChart dataset={bandwidthValues} />}
