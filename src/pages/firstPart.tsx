@@ -72,6 +72,7 @@ export const FirstPart: React.FC = () => {
               }
             }
           },
+          elements: { point: { radius: 0 } },
           plugins: {
             title: {
               display: true,
@@ -80,6 +81,7 @@ export const FirstPart: React.FC = () => {
               font: { size: 20 }
             },
             legend: { align: 'center', position: 'left' },
+            tooltip: { enabled: false },
             annotation: {
               annotations: {
                 line1: {

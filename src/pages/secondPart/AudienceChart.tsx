@@ -53,11 +53,12 @@ export const AudienceChart: React.FC<{ dataset: AudienceValues }> = ({ dataset }
           plugins: {
             title: {
               display: true,
-              text: 'Concurrent Viewers',
+              text: 'CONCURRENT VIEWERS',
               align: 'start',
               font: { size: 18, weight: '200' }
             },
-            legend: { display: false }
+            legend: { display: false },
+            tooltip: { enabled: false }
           }
         }}
       />

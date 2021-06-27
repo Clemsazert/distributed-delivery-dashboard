@@ -10,6 +10,13 @@ const GraphContainer = styled.div`
   height: 300px;
 `;
 
+interface ChartTooltipContext {
+  dataIndex: number;
+  dataset: { label: string };
+  label: string;
+  parsed: { x: number; y: number };
+}
+
 export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset }) => {
   const labels = useMemo(() => dataset.cdn.map(entry => entry[0]), [dataset]);
   const cdnValues = useMemo(() => dataset.cdn.map(entry => entry[1]), [dataset]);
@@ -72,7 +79,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
               }
             }
           },
-          elements: { point: { radius: 0 } },
+          elements: { point: { radius: 0, hitRadius: 5 } },
           plugins: {
             title: {
               display: true,
@@ -107,9 +114,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
                   borderWidth: 3,
                   borderDash: [10, 10],
                   label: {
-                    content: `Max Throughput: ${formatBandwidthValue(
-                      maxBandwithStacked
-                    )} Gbs`,
+                    content: `Max Throughput: ${formatBandwidthValue(maxBandwithStacked)} Gbs`,
                     enabled: true,
                     position: 'end',
                     backgroundColor: 'rgba(0,0,0,0)',
@@ -117,6 +122,31 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
                     yAdjust: -10
                   }
                 }
+              }
+            },
+            tooltip: {
+              interaction: { mode: 'index' },
+              backgroundColor: '#fff',
+              bodyColor: 'rgb(61, 61, 61)',
+              footerColor: 'rgb(61, 61, 61)',
+              titleColor: '#000',
+              callbacks: {
+                title: (context: { dataIndex: number; label: string }[]) =>
+                  formatDateLabels(context[0].label, 'cccc, LLL d, yyyy h:mm a'),
+                footer: (
+                  context: { dataIndex: number; label: string; parsed: { x: number; y: number } }[]
+                ) => {
+                  const total = context.reduce(
+                    (previous, current) => previous + current.parsed.y,
+                    0
+                  );
+                  const reduction = context[0].parsed.y / total;
+                  return `Total: ${formatBandwidthValue(total)}\nSpike Reduction: ${
+                    Math.trunc(reduction * 10000) / 100
+                  }%`;
+                },
+                label: (context: ChartTooltipContext) =>
+                  `${context.dataset.label}: ${formatBandwidthValue(context.parsed.y)}`
               }
             }
           }
