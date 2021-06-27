@@ -1,5 +1,6 @@
 import React from 'react';
 import { DateTime } from 'luxon';
+import styled from 'styled-components';
 
 import * as dataset from '../data.json';
 
@@ -12,6 +13,10 @@ const GRAPH_COLORS = {
   TRANSP_BLUE: 'rgba(0, 131, 207, 0.25)',
   GREEN: 'rgb(14, 167, 0)'
 };
+
+const GraphContainer = styled.div`
+  height: 400px;
+`;
 
 export const FirstPart: React.FC = () => {
   const labels = dataset.cdn.map(entry => entry[0]);
@@ -45,84 +50,87 @@ export const FirstPart: React.FC = () => {
   return (
     <Container>
       <HeadPageTitle>First Part</HeadPageTitle>
-      <BaseChart
-        id="bandwith"
-        type="line"
-        labels={labels}
-        datasets={[bandwidthDataset, p2pDataset]}
-        options={{
-          scales: {
-            y: {
-              stacked: true,
-              ticks: {
-                callback: formatBandwidthValue,
-                autoSkip: true,
-                maxTicksLimit: 5,
-                maxRotation: 0,
-                minRotation: 0
+      <GraphContainer>
+        <BaseChart
+          id="bandwith"
+          type="line"
+          labels={labels}
+          datasets={[bandwidthDataset, p2pDataset]}
+          options={{
+            scales: {
+              y: {
+                stacked: true,
+                ticks: {
+                  callback: formatBandwidthValue,
+                  autoSkip: true,
+                  maxTicksLimit: 5,
+                  maxRotation: 0,
+                  minRotation: 0
+                }
+              },
+              x: {
+                ticks: {
+                  callback: (index: number) => formatDateLabels(labels[index]),
+                  autoSkip: true,
+                  maxTicksLimit: 5,
+                  maxRotation: 0,
+                  minRotation: 0
+                }
               }
             },
-            x: {
-              ticks: {
-                callback: (index: number) => formatDateLabels(labels[index]),
-                autoSkip: true,
-                maxTicksLimit: 5,
-                maxRotation: 0,
-                minRotation: 0
-              }
-            }
-          },
-          elements: { point: { radius: 0 } },
-          plugins: {
-            title: {
-              display: true,
-              text: 'Bandwidth Usage',
-              align: 'start',
-              font: { size: 20 }
-            },
-            legend: { align: 'center', position: 'left' },
-            tooltip: { enabled: false },
-            annotation: {
-              annotations: {
-                line1: {
-                  type: 'line',
-                  yMin: maxBandwidthCDN,
-                  yMax: maxBandwidthCDN,
-                  borderColor: GRAPH_COLORS.MAUVE,
-                  borderWidth: 3,
-                  borderDash: [10, 10],
-                  label: {
-                    content: `Max CDN Throughput: ${formatBandwidthValue(maxBandwidthCDN)} Gbs`,
-                    enabled: true,
-                    position: 'end',
-                    backgroundColor: 'rgba(0,0,0,0)',
-                    color: GRAPH_COLORS.MAUVE,
-                    yAdjust: -10
-                  }
-                },
-                line2: {
-                  type: 'line',
-                  yMin: maxBandwithStacked,
-                  yMax: maxBandwithStacked,
-                  borderColor: GRAPH_COLORS.GREEN,
-                  borderWidth: 3,
-                  borderDash: [10, 10],
-                  label: {
-                    content: `Max Combined Throughput: ${formatBandwidthValue(
-                      maxBandwithStacked
-                    )} Gbs`,
-                    enabled: true,
-                    position: 'end',
-                    backgroundColor: 'rgba(0,0,0,0)',
-                    color: GRAPH_COLORS.GREEN,
-                    yAdjust: -10
+            elements: { point: { radius: 0 } },
+            maintainAspectRatio: false,
+            plugins: {
+              title: {
+                display: true,
+                text: 'Bandwidth Usage',
+                align: 'start',
+                font: { size: 20 }
+              },
+              legend: { align: 'center', position: 'left' },
+              tooltip: { enabled: false },
+              annotation: {
+                annotations: {
+                  line1: {
+                    type: 'line',
+                    yMin: maxBandwidthCDN,
+                    yMax: maxBandwidthCDN,
+                    borderColor: GRAPH_COLORS.MAUVE,
+                    borderWidth: 3,
+                    borderDash: [10, 10],
+                    label: {
+                      content: `Max CDN Throughput: ${formatBandwidthValue(maxBandwidthCDN)} Gbs`,
+                      enabled: true,
+                      position: 'end',
+                      backgroundColor: 'rgba(0,0,0,0)',
+                      color: GRAPH_COLORS.MAUVE,
+                      yAdjust: -10
+                    }
+                  },
+                  line2: {
+                    type: 'line',
+                    yMin: maxBandwithStacked,
+                    yMax: maxBandwithStacked,
+                    borderColor: GRAPH_COLORS.GREEN,
+                    borderWidth: 3,
+                    borderDash: [10, 10],
+                    label: {
+                      content: `Max Combined Throughput: ${formatBandwidthValue(
+                        maxBandwithStacked
+                      )} Gbs`,
+                      enabled: true,
+                      position: 'end',
+                      backgroundColor: 'rgba(0,0,0,0)',
+                      color: GRAPH_COLORS.GREEN,
+                      yAdjust: -10
+                    }
                   }
                 }
               }
             }
-          }
-        }}
-      />
+          }}
+        />
+      </GraphContainer>
     </Container>
   );
 };

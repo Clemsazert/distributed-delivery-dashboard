@@ -3,17 +3,9 @@ import styled from 'styled-components';
 import { DateTime } from 'luxon';
 
 import { Container, HeadPageTitle } from '../../components';
-import { BandwidthChart } from './BandwidthChart';
-import { AudienceChart } from './AudienceChart';
-import { DateSelector } from './DateSelector';
-import { UserLogin } from './UserLogin';
+import { BandwidthChart, AudienceChart, DateSelector, UserLogin } from './components';
 import { useDashboard } from './useDashboard';
-
-const TimelineContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+import { TimelineContainer } from './Dashboard.styles';
 
 export const SecondPart: React.FC = () => {
   const {

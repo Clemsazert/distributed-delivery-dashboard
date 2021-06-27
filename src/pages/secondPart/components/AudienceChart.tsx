@@ -1,15 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
 
-import { AudienceValues } from '../../types/BackendAnswers';
-import { formatAudienceValue, formatDateLabels, GRAPH_COLORS } from '../../utils/graphFormating';
+import { AudienceValues } from '../../../types/BackendAnswers';
+import { formatAudienceValue, formatDateLabels, GRAPH_COLORS } from '../../../utils/graphFormating';
 
-import { BaseChart } from '../../components';
-
-const GraphContainer = styled.div`
-  width: 1000px;
-  height: 200px;
-`;
+import { BaseChart } from '../../../components';
+import { GraphContainer } from '../Dashboard.styles';
 
 export const AudienceChart: React.FC<{ dataset: AudienceValues }> = ({ dataset }) => {
   const labels = dataset.map(entry => entry[0]);
@@ -23,8 +18,6 @@ export const AudienceChart: React.FC<{ dataset: AudienceValues }> = ({ dataset }
       <BaseChart
         id="audience"
         type="line"
-        width="1000"
-        height="200"
         labels={labels}
         datasets={[audienceDataset]}
         options={{
@@ -50,6 +43,7 @@ export const AudienceChart: React.FC<{ dataset: AudienceValues }> = ({ dataset }
             }
           },
           elements: { point: { radius: 0 } },
+          maintainAspectRatio: false,
           plugins: {
             title: {
               display: true,

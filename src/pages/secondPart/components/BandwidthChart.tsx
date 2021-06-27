@@ -1,14 +1,9 @@
-import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 
-import { BandwidthValues } from '../../types/BackendAnswers';
-import { formatBandwidthValue, formatDateLabels, GRAPH_COLORS } from '../../utils/graphFormating';
-import { BaseChart } from '../../components';
-
-const GraphContainer = styled.div`
-  width: 1000px;
-  height: 300px;
-`;
+import { BandwidthValues } from '../../../types/BackendAnswers';
+import { formatBandwidthValue, formatDateLabels, GRAPH_COLORS } from '../../../utils/graphFormating';
+import { BaseChart } from '../../../components';
+import { GraphContainer } from '../Dashboard.styles';
 
 interface ChartTooltipContext {
   dataIndex: number;
@@ -37,10 +32,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
     backgroundColor: GRAPH_COLORS.TRANSP_BLUE,
     fill: true
   };
-  const maxBandwidthCDN = useMemo(
-    () => cdnValues.reduce((previous, current) => (previous > current ? previous : current), 0),
-    [dataset]
-  );
+  const maxBandwidthCDN = cdnValues.reduce((previous, current) => (previous > current ? previous : current), 0);
   const maxBandwithStacked = cdnValues.reduce(
     (previous, current, index) =>
       previous > current + p2pValues[index] ? previous : current + p2pValues[index],
@@ -51,8 +43,6 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
       <BaseChart
         id="bandwith"
         type="line"
-        width="1000"
-        height="300"
         labels={labels}
         datasets={[cdnDataset, p2pDataset]}
         options={{
@@ -78,6 +68,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
             }
           },
           elements: { point: { radius: 0, hitRadius: 5 } },
+          maintainAspectRatio: false,
           plugins: {
             title: {
               display: true,

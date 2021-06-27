@@ -1,6 +1,6 @@
 import React, { useReducer, Reducer } from 'react';
 
-import { LoginInfo } from '../../types/User';
+import { LoginInfo } from '../../../types/User';
 
 type reducerAction = {
   field: keyof LoginInfo;
