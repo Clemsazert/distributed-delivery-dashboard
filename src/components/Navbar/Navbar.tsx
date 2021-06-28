@@ -1,19 +1,21 @@
 import React from 'react';
 
 import { Nav, NavbarContainer, NavTitle, NavList, NavListItem, NavListLink } from './Navbar.styles';
-import { routes } from '../../routes';
 
 export const Navbar: React.FC = () => (
-  <Nav>
-    <NavbarContainer>
-      <NavTitle to="/part1">Distributed Deliver Dashboard</NavTitle>
-      <NavList>
-        {routes.map(route => (
-          <NavListItem key={route.path}>
-            <NavListLink to={route.path}>{route.title}</NavListLink>
+  <div>
+    <Nav>
+      <NavbarContainer>
+        <NavTitle to="/part1">Distributed Deliver Dashboard</NavTitle>
+        <NavList>
+          <NavListItem>
+            <NavListLink to="/part1">Part 1</NavListLink>
           </NavListItem>
-        ))}
-      </NavList>
-    </NavbarContainer>
-  </Nav>
+          <NavListItem>
+            <NavListLink to="/part2">Part 2</NavListLink>
+          </NavListItem>
+        </NavList>
+      </NavbarContainer>
+    </Nav>
+  </div>
 );

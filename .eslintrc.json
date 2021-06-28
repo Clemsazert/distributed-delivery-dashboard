@@ -47,7 +47,8 @@
     "react/prop-types": "off",
     "linebreak-style": "off",
     "no-use-before-define": "off",
-    "@typescript-eslint/no-use-before-define": ["error"]
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "jsx-a11y/label-has-associated-control": "off"
   },
   "settings": {
     "import/extensions": [".js", ".ts"],

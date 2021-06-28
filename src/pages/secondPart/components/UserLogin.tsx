@@ -1,6 +1,15 @@
 import React, { useReducer, Reducer } from 'react';
+import styled from 'styled-components';
 
 import { LoginInfo } from '../../../types/User';
+
+import {
+  LoginContainer,
+  LoginTitle,
+  StyledForm,
+  StyledInput,
+  StyledFormButton
+} from './UserLogin.styles';
 
 type reducerAction = {
   field: keyof LoginInfo;
@@ -24,34 +33,33 @@ export const UserLogin: React.FC<{ handleLogin: (identifiant: string, password: 
       (field: keyof LoginInfo) => (event: React.ChangeEvent<HTMLInputElement>) => {
         dispatch({ field, payload: event.target.value });
       };
-    const handleClickLogin = () => {
+    const handleSubmitLoginForm = () => {
       if (loginInfo && loginInfo.identifiant && loginInfo.password) {
         handleLogin(loginInfo.identifiant, loginInfo.password);
       }
     };
     return (
-      <form>
-        <label htmlFor="identifiant">
-          Enter your identifiant:
-          <input
+      <LoginContainer>
+        <LoginTitle>Login</LoginTitle>
+        <StyledForm>
+          <label htmlFor="identifiant">ID:</label>
+          <StyledInput
             type="text"
             name="identifiant"
             id="identifiant"
             onChange={handleChangeValue('identifiant')}
           />
-        </label>
-        <label htmlFor="password">
-          Enter your password:
-          <input
+          <label htmlFor="password">Password:</label>
+          <StyledInput
             type="password"
             name="password"
             id="password"
             onChange={handleChangeValue('password')}
           />
-        </label>
-        <button onClick={handleClickLogin} type="button">
-          Login
-        </button>
-      </form>
+          <StyledFormButton type="button" onClick={handleSubmitLoginForm}>
+            Login
+          </StyledFormButton>
+        </StyledForm>
+      </LoginContainer>
     );
   };

@@ -15,5 +15,6 @@ export const GRAPH_COLORS = {
   BLUE: 'rgb(0, 131, 207)',
   TRANSP_BLUE: 'rgba(0, 131, 207, 0.25)',
   GREEN: 'rgb(14, 167, 0)',
+  TRANSP_GREEN: 'rgb(14, 167, 0, 0.25)',
   ORANGE: 'rgb(245, 78, 0)'
 };

@@ -1,5 +1,13 @@
 import React from 'react';
 import { DateTime } from 'luxon';
+import styled from 'styled-components';
+
+const StyledDateInput = styled.input`
+  height: 50px;
+  padding: 0px 10px;
+  overflow: visible;
+  font-family: inherit;
+`;
 
 export const DateSelector: React.FC<{
   date: DateTime;
@@ -7,7 +15,7 @@ export const DateSelector: React.FC<{
   min?: DateTime;
   max?: DateTime;
 }> = ({ date, handleChangeDate, min, max }) => (
-  <input
+  <StyledDateInput
     type="date"
     onChange={handleChangeDate}
     value={date.toISODate()}

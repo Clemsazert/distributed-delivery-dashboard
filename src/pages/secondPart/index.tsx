@@ -1,9 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { DateTime } from 'luxon';
 
 import { Container, HeadPageTitle } from '../../components';
-import { BandwidthChart, AudienceChart, DateSelector, UserLogin } from './components';
+import { BandwidthChart, AudienceChart, SummaryChart, DateSelector, UserLogin } from './components';
 import { useDashboard } from './useDashboard';
 import { TimelineContainer } from './Dashboard.styles';
 
@@ -24,13 +23,28 @@ export const SecondPart: React.FC = () => {
         <UserLogin handleLogin={handleLogin} />
       ) : (
         <>
-          {bandwidthValues && <BandwidthChart dataset={bandwidthValues} />}
-          {audienceValues && <AudienceChart dataset={audienceValues} />}
-          <TimelineContainer>
-            <DateSelector date={startDate} handleChangeDate={handleChangeDate('start')} max={endDate} />
-            <div style={{ width: '100%', backgroundColor: 'green' }}>Timeline</div>
-            <DateSelector date={endDate} handleChangeDate={handleChangeDate('end')} min={startDate} max={DateTime.now()} />
-          </TimelineContainer>
+          {bandwidthValues && audienceValues ? (
+            <div>
+              <BandwidthChart dataset={bandwidthValues} />
+              <AudienceChart dataset={audienceValues} />
+              <TimelineContainer>
+                <DateSelector
+                  date={startDate}
+                  handleChangeDate={handleChangeDate('start')}
+                  max={endDate}
+                />
+                <SummaryChart dataset={bandwidthValues} />
+                <DateSelector
+                  date={endDate}
+                  handleChangeDate={handleChangeDate('end')}
+                  min={startDate}
+                  max={DateTime.now()}
+                />
+              </TimelineContainer>
+            </div>
+          ) : (
+            <p>loading ...</p>
+          )}
         </>
       )}
     </Container>

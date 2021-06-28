@@ -3,14 +3,12 @@ const shadows = { default: '0px 2px 10px rgba(0, 0, 0, 0.15)' };
 export const theme = {
   gridUnit: 5,
   colors: {
-    primary: '#6558f5',
+    primary: '#006eff',
     secondary: '#ac6363',
-    lightRed: '#e9a2ad',
-    darkRed: '#d3455b',
-    mint: '#8ed7cf',
-    darkMint: '#1cae9f',
+    grey: '#e3e3e3',
     orange: '#e8833a',
-    white: '#ffffff'
+    white: '#ffffff',
+    lightGreen: '#85de8a'
   },
   fontSizes: {
     tiny: 10,
