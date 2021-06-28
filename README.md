@@ -1,5 +1,7 @@
 # Distributed Delivery Dashboard
 
+*Contact:* [clement.didom@gmailcom](mailto:clement.didom@gmailcom)
+
 In the project directory, you can find the React App used as a client, displaying the data retrieved from the mock_backend located in the `mock-backend` subdirectory.
 
 The React App uses Typescript and has been bootstraped using Create React App.
