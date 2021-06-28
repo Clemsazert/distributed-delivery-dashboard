@@ -9,6 +9,15 @@ export const formatAudienceValue = (value: number): string =>
 export const formatDateLabels = (timestamp: number | string, format = 'LLL d, h:mm a'): string =>
   DateTime.fromMillis(Number(timestamp)).toFormat(format);
 
+export  const computeTicksNumber = (labels?: number[]): number => {
+    if (labels && labels.length > 0) {
+      const start = DateTime.fromMillis(labels[0]);
+      const end = DateTime.fromMillis(labels[labels.length - 1]);
+      return end.diff(start, 'days').days;
+    }
+    return 15;
+  }
+
 export const GRAPH_COLORS = {
   MAUVE: 'rgb(211, 0, 98)',
   TRANSP_MAUVE: 'rgba(211, 0, 98, 0.25)',

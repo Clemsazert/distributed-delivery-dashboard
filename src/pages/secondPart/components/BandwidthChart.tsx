@@ -1,7 +1,8 @@
 import React from 'react';
+import { DateTime } from 'luxon';
 
 import { BandwidthValues } from '../../../types/BackendAnswers';
-import { formatBandwidthValue, formatDateLabels, GRAPH_COLORS } from '../../../utils/graphFormating';
+import { formatBandwidthValue, formatDateLabels, computeTicksNumber, GRAPH_COLORS } from '../../../utils/graphFormating';
 import { BaseChart } from '../../../components';
 import { GraphContainer } from '../Dashboard.styles';
 
@@ -51,7 +52,6 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
               stacked: true,
               ticks: {
                 callback: formatBandwidthValue,
-                autoSkip: true,
                 maxTicksLimit: 4,
                 maxRotation: 0,
                 minRotation: 0
@@ -60,8 +60,7 @@ export const BandwidthChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset
             x: {
               ticks: {
                 callback: (index: number) => formatDateLabels(labels[index], 'LLL d'),
-                autoSkip: true,
-                maxTicksLimit: 15,
+                maxTicksLimit: computeTicksNumber(labels),
                 maxRotation: 0,
                 minRotation: 0
               }

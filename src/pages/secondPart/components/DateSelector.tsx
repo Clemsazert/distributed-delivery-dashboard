@@ -6,6 +6,7 @@ const StyledDateInput = styled.input`
   height: 50px;
   padding: 0px 10px;
   font-family: inherit;
+  min-width: 100px;
 `;
 
 export const DateSelector: React.FC<{

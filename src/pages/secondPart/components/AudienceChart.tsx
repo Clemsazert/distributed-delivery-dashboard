@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { AudienceValues } from '../../../types/BackendAnswers';
-import { formatAudienceValue, formatDateLabels, GRAPH_COLORS } from '../../../utils/graphFormating';
+import { formatAudienceValue, formatDateLabels, computeTicksNumber, GRAPH_COLORS } from '../../../utils/graphFormating';
 
 import { BaseChart } from '../../../components';
 import { GraphContainer } from '../Dashboard.styles';
@@ -36,7 +36,7 @@ export const AudienceChart: React.FC<{ dataset: AudienceValues }> = ({ dataset }
               ticks: {
                 callback: (index: number) => formatDateLabels(labels[index], 'LLL d'),
                 autoSkip: true,
-                maxTicksLimit: 15,
+                maxTicksLimit: computeTicksNumber(labels),
                 maxRotation: 0,
                 minRotation: 0
               }
