@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { BandwidthValues } from '../../../types/BackendAnswers';
-import {  GRAPH_COLORS } from '../../../utils/graphFormating';
+import { GRAPH_COLORS } from '../../../utils/graphFormating';
 import { BaseChart } from '../../../components';
 import { GraphContainer } from '../Dashboard.styles';
 
@@ -36,7 +36,7 @@ export const SummaryChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset }
           },
           elements: { point: { radius: 0 } },
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } }
+          plugins: { legend: { display: false }, tooltip: { enabled: false } }
         }}
       />
     </SummaryGraphContainer>
