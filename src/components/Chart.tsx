@@ -37,7 +37,11 @@ export const BaseChart: React.FunctionComponent<ChartProps> = ({
     return chart;
   };
 
-  const updateChart = (newDatasets: ChartDataset[], newLabels: (string | number)[], newOptions: any) => {
+  const updateChart = (
+    newDatasets: ChartDataset[],
+    newLabels: (string | number)[],
+    newOptions: any
+  ) => {
     if (myChart.current) {
       const { current } = myChart;
       newDatasets.forEach((dataset, index) => {
@@ -67,7 +71,6 @@ export const BaseChart: React.FunctionComponent<ChartProps> = ({
   React.useEffect(() => {
     updateChart(datasets, labels, options);
   }, [datasets, labels]);
-
 
   return <canvas id={id} ref={ref} height={height} width={width} />;
 };
