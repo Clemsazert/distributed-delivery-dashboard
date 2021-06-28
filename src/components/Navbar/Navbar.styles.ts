@@ -16,6 +16,7 @@ export const Nav = styled.nav`
 `;
 
 export const NavbarContainer = styled(Container)`
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

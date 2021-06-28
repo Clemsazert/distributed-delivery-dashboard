@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const StyledDateInput = styled.input`
   height: 50px;
   padding: 0px 10px;
-  overflow: visible;
   font-family: inherit;
 `;
 

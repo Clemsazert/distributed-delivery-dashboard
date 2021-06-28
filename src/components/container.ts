@@ -4,12 +4,12 @@ export const Container = styled.div`
   margin: 0 auto;
   padding: 0 50px;
   max-width: 1300px;
-  width: 100%;
+  width: auto;
 
   @media (max-width: 400px) {
     padding: 0 10px;
   }
-  @media (max-width: 991px) {
+  @media (max-width: 990px) {
     padding: 0 30px;
   }
 

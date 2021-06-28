@@ -7,8 +7,8 @@ import { BaseChart } from '../../../components';
 import { GraphContainer } from '../Dashboard.styles';
 
 const SummaryGraphContainer = styled(GraphContainer)`
-  width: 100%;
   background-color: ${props => props.theme.colors.lightGreen};
+  margin-bottom: 0px;
 `;
 
 export const SummaryChart: React.FC<{ dataset: BandwidthValues }> = ({ dataset }) => {
