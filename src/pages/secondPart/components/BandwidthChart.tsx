@@ -1,5 +1,4 @@
 import React from 'react';
-import { DateTime } from 'luxon';
 
 import { BandwidthValues } from '../../../types/BackendAnswers';
 import { formatBandwidthValue, formatDateLabels, computeTicksNumber, GRAPH_COLORS } from '../../../utils/graphFormating';

@@ -1,5 +1,4 @@
 import React, { useReducer, Reducer } from 'react';
-import styled from 'styled-components';
 
 import { LoginInfo } from '../../../types/User';
 
