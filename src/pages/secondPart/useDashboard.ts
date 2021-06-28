@@ -58,6 +58,7 @@ export const useDashboard = (): useDashboardSignature => {
       }
     };
   useEffect(() => {
+    // Try to find a sessionToken in local storage after component is mounted
     const token = localStorage.getItem('sessionToken');
     if (token) {
       BackendSession.setSessionToken(token);
@@ -65,6 +66,11 @@ export const useDashboard = (): useDashboardSignature => {
     }
   }, []);
   useEffect(() => {
+    /* 
+    Update the values to display in the charts when:
+      - the user is set (to display the charts with the default dates)
+      - startDate or endDate changes
+    */
     if (user) {
       handleRetrieveData();
     }
